@@ -10,7 +10,7 @@
   ],
   "deploy": {
     "development": {
-      "key": "../epicure-key.pem",
+      "key": "../../.ssh/epicure-key.pem",
       "user": "ubuntu",
       "host": "epicure-gilad.moveodevelop.com",
       "ref": "origin/master",
