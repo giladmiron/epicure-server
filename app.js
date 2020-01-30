@@ -14,7 +14,8 @@ var app = express();
 var mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost/Epicure", {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useCreateIndex: true
 });
 
 app.use(cors());

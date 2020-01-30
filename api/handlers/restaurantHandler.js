@@ -1,5 +1,6 @@
 const Restaurant = require("../../DB/models/restaurant");
 const Menu = require("../../DB/models/menu");
+const Dish = require("../../DB/models/dish");
 
 const getRestaurantsHandler = function(cb) {
   Restaurant.find({})
@@ -35,8 +36,26 @@ const getRestaurantsByChefHandler = function(cb) {
     .exec(cb);
 };
 
+const getRestaurantHandler = async (restaurantId, cb) => {
+  Restaurant.findOne(
+    {
+      _id: restaurantId
+    },
+    {
+      __v: false
+    }
+  )
+    .populate({
+      path: "menu",
+      populate: "breakfast lunch dinner"
+    })
+    .populate("chef")
+    .exec(cb);
+};
+
 module.exports = {
   getRestaurantsHandler,
   getRestaurantsByChefHandler,
-  getMenuHandler
+  getMenuHandler,
+  getRestaurantHandler
 };

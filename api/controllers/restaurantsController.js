@@ -1,7 +1,8 @@
 const {
   getRestaurantsHandler,
   getRestaurantsByChefHandler,
-  getMenuHandler
+  getMenuHandler,
+  getRestaurantHandler
 } = require("../handlers/restaurantHandler");
 
 const getRestaurantsController = function(req, res) {
@@ -44,8 +45,22 @@ const getRestaurantsByChefController = function(req, res) {
   }
 };
 
+const getRestaurantController = function(req, res) {
+  try {
+    getRestaurantHandler(req.params.restaurantId, (err, doc) => {
+      if (err || !doc) {
+        if (err) res.sendStatus(500).send(err.errmsg);
+        else res.sendStatus(204);
+      } else res.json(doc);
+    });
+  } catch (e) {
+    res.status(500).send(e.message);
+  }
+};
+
 module.exports = {
   getRestaurantsController,
   getMenuController,
-  getRestaurantsByChefController
+  getRestaurantsByChefController,
+  getRestaurantController
 };
